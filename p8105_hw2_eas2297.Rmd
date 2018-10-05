@@ -124,12 +124,6 @@ rename(harbor_data_2016, total_precip = total)
 rename(harbor_data_2017, total_precip = total)
 ```
 
-
-
-
-
-
-
-
+We have two datasets right now; one is a combination of Mr. Trash Wheel data and 2016 precipitation data (harbor_data_2016), while the other is a combination of Mr. Trash Wheel data and 2017 precipitation data (harbor_data_2017). Both are from the HealthyHarbor data collection's most recent update on July 28, 2018. The first dataset, harbor_data_2016, has `r nrow(harbor_data_2016)` observations while the second dataset, harbor_data_2017, has `r nrow(harbor_data_2017)` observations. Key variables in each dataset include the dumpster number (*dumpster*), the month and year this dumpster was collected (*month* and *year*), its weight in tons (*weight_tons*), its volume in cubic yards (*volume_cubic_yards*), and the total precipitation in inches (*total_precip*) for the corresponding month and year. The total precipitation amount for 2017 was `r sum(precipm_2017$total)` inches. The median number of sports balls in a dumpster in 2016 was `r median(harbor_data_2016$sports_ball_count)`.
 
 
