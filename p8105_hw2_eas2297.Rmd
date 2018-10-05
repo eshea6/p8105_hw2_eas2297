@@ -116,11 +116,12 @@ precipm_2016 = precip_2016 %>%
 precipm_2017 = precip_2017 %>% 
   mutate(month = month.name)
 
-harbor_partial_data = left_join(mr_trash_wheel, precipm_2016)
+harbor_data_2016 = inner_join(mr_trash_wheel, precipm_2016)
 
-harbor_data = left_join(harbor_partial_data, precipm_2017)
+harbor_data_2017 = inner_join(mr_trash_wheel, precipm_2017)
 
-rename(harbor_data, total_precip = total)
+rename(harbor_data_2016, total_precip = total)
+rename(harbor_data_2017, total_precip = total)
 ```
 
 
