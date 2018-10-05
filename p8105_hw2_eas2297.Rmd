@@ -165,10 +165,19 @@ brfss_clean %>%
   count(locationabbr)
 ```
 
-From this code chunk we learn that there are 404 unique locations in the dataset. All 50 states are represented in the data, in addition to the District of Columbia. Florida is observed the most at 44 unique locations. 
+From this code chunk we learn that there are **404** unique locations in the dataset. All 50 states are represented in the data, in addition to the District of Columbia. Florida is observed the most at 44 unique locations. 
 
 
 In 2002, what is the median of the “Excellent” response value?
+
+```{r}
+brfss_2002 = brfss_clean %>% 
+  filter(year == 2002)
+
+median(brfss_2002$excellent, na.rm = TRUE)
+```
+
+The median of the "Excellent" response value in 2002 was **23.6%**. 
 
 
 Make a histogram of “Excellent” response values in the year 2002.
@@ -179,6 +188,7 @@ brfss_clean %>%
   ggplot(aes(x = excellent)) + geom_histogram()
 ```
 
+
 Make a scatterplot showing the proportion of “Excellent” response values in New York County and Queens County (both in NY State) in each year from 2002 to 2010.
 
 ```{r}
@@ -186,7 +196,4 @@ brfss_clean %>%
   filter(locationdesc == "NY - New York County" | locationdesc == "NY - Queens County") %>%
   ggplot(aes(x = year, y = excellent)) + geom_point(aes(color = locationdesc))
 ```
-
-
-
 
