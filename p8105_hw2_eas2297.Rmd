@@ -95,17 +95,35 @@ mr_trash_wheel =
   select(everything(), -sports_balls)
 ```
 
-Next we will read and clean the precipitation data for 2016 and 2017. Steps include omitting rows without precipitation data and adding a variable year:
+Next we will read and clean the precipitation data for 2016 and 2017. Steps include omitting rows without precipitation data (for 2016 and 2017 all rows have precipitation data) and adding a variable year:
 
 ```{r}
-precip_2016 = read_xlsx("./data/HealthyHarborWaterWheelTotals2018-7-28.xlsx", sheet = "2016 Precipitation", range = "A2:B15") %>% 
+precip_2016 = read_xlsx("./data/HealthyHarborWaterWheelTotals2018-7-28.xlsx", sheet = "2016 Precipitation", range = "A2:B14") %>% 
   janitor::clean_names() %>% 
-  mutate(year = "2016")
+  mutate(year = 2016)
 
-precip_2017 = read_xlsx("./data/HealthyHarborWaterWheelTotals2018-7-28.xlsx", sheet = "2017 Precipitation", range = "A2:B15") %>% 
+precip_2017 = read_xlsx("./data/HealthyHarborWaterWheelTotals2018-7-28.xlsx", sheet = "2017 Precipitation", range = "A2:B14") %>% 
   janitor::clean_names() %>% 
-  mutate(year = "2017")
+  mutate(year = 2017)
 ```
+
+We must then combine the datasets and convert month to a character variable:
+
+```{r}
+precipm_2016 = precip_2016 %>% 
+  mutate(month = month.name)
+                
+precipm_2017 = precip_2017 %>% 
+  mutate(month = month.name)
+
+harbor_partial_data = left_join(mr_trash_wheel, precipm_2016)
+
+harbor_data = left_join(harbor_partial_data, precipm_2017)
+
+rename(harbor_data, total_precip = total)
+```
+
+
 
 
 
