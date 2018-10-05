@@ -95,6 +95,21 @@ mr_trash_wheel =
   select(everything(), -sports_balls)
 ```
 
+Next we will read and clean the precipitation data for 2016 and 2017. Steps include omitting rows without precipitation data and adding a variable year:
+
+```{r}
+precip_2016 = read_xlsx("./data/HealthyHarborWaterWheelTotals2018-7-28.xlsx", sheet = "2016 Precipitation", range = "A2:B15") %>% 
+  janitor::clean_names() %>% 
+  mutate(year = "2016")
+
+precip_2017 = read_xlsx("./data/HealthyHarborWaterWheelTotals2018-7-28.xlsx", sheet = "2017 Precipitation", range = "A2:B15") %>% 
+  janitor::clean_names() %>% 
+  mutate(year = "2017")
+```
+
+
+
+
 
 
 
