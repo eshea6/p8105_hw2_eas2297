@@ -24,6 +24,37 @@ subway_data = read_csv("./data/NYC_Transit_Subway_Entrance_And_Exit_Data.csv") %
 
 The dataset we have right now is a subset of NYC Transit data that relates information about entrances and exits for each subway station in NYC. Variables that have been kept as part of our dataset are: line, station_name, station_latitude, station_longitude, route1-11, entry, vending, entrance_type, and ada. These data encompass numerous data types, including character variables (e.g. line, station_name), double variables (e.g. station_latitude, station_longitude), integer variables (e.g. route8, route11), and logical variables (e.g. ada, entry). So far, the data cleaning steps have involved turning all of the variable names into lower snake case, getting rid of extraneous variables, and converting between character and logical variable for _entry_. The dataset consits of 1868 rows and 19 columns. Right now, the dataset is not particularly tidy, especially due to the fact that some columns are values instead of variable names (i.e. route1-11 columns). 
 
+First, we are curious about how many distinct stations there are.
+
+```{r}
+distinct_sub = subway_data %>% 
+  distinct(line, station_name, .keep_all = TRUE)
+```
+
+From the above code chunk, we learn that there are **465** distinct subway stations.
+
+Next, we are curious about how many stations are ADA compliant.
+
+```{r}
+sum(distinct_sub$ada)
+```
+
+It turns out that there are only **84** ADA compliant subway stations out of that bunch.
+
+We are then curious about what proportion of station entrances / exits without vending allow entrance.
+
+```{r}
+no_vending = subway_data %>% 
+  filter(vending == "NO")
+
+sum(no_vending$entry)/length(no_vending$entry)
+```
+
+From this code chunk we learn that the proportion of station entrances / exits without vending that allow entrance is **0.377**.
+
+
+
+
 
 
 
