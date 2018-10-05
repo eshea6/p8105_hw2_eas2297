@@ -81,6 +81,20 @@ sum(A_train$ada)
 Out of 60 A train stations, **17** are ADA compliant.
 
 
+## Problem 2
+
+First we need to read and clean the Excel file by specifying the Mr. Trash Wheel sheet and omitting the notes columns, using reasonable variable names, omitting rows that do not include dumpster-specific data, rounding the number of sports balls to the nearest integer, and converting this result to an integer variable:
+
+```{r}
+library(readxl)
+mr_trash_wheel = 
+  read_xlsx("./data/HealthyHarborWaterWheelTotals2018-7-28.xlsx", sheet = "Mr. Trash Wheel", range = "A2:N338") %>% 
+  janitor::clean_names() %>% 
+  filter(!is.na(dumpster)) %>% 
+  mutate(sports_ball_count = as.integer(round(sports_balls))) %>% 
+  select(everything(), -sports_balls)
+```
+
 
 
 
