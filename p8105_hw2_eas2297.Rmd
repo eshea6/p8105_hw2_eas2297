@@ -126,4 +126,28 @@ rename(harbor_data_2017, total_precip = total)
 
 We have two datasets right now; one is a combination of Mr. Trash Wheel data and 2016 precipitation data (harbor_data_2016), while the other is a combination of Mr. Trash Wheel data and 2017 precipitation data (harbor_data_2017). Both are from the HealthyHarbor data collection's most recent update on July 28, 2018. The first dataset, harbor_data_2016, has `r nrow(harbor_data_2016)` observations while the second dataset, harbor_data_2017, has `r nrow(harbor_data_2017)` observations. Key variables in each dataset include the dumpster number (*dumpster*), the month and year this dumpster was collected (*month* and *year*), its weight in tons (*weight_tons*), its volume in cubic yards (*volume_cubic_yards*), and the total precipitation in inches (*total_precip*) for the corresponding month and year. The total precipitation amount for 2017 was `r sum(precipm_2017$total)` inches. The median number of sports balls in a dumpster in 2016 was `r median(harbor_data_2016$sports_ball_count)`.
 
+## Problem 3
+
+First we need to load the data from the p8105.datasets package:
+
+```{r}
+library(p8105.datasets)
+data(brfss_smart2010)
+```
+
+Then we need to do the following manipulations: For this question: 1) format the data to use appropriate variable names, 2) focus on the “Overall Health” topic, 3) exclude variables for class, topic, question, sample size, and everything from lower confidence limit to GeoLocation, 4) structure data so that values for Response (“Excellent” to “Poor”) are column names / variables which indicate the proportion of subjects with each response (which are values of Data_value in the original dataset), 5) create a new variable showing the proportion of responses that were “Excellent” or “Very Good”.
+
+```{r}
+brfss_clean = brfss_smart2010 %>% 
+  janitor::clean_names() %>% 
+  filter(topic == "Overall Health") %>% 
+  select(-class, -topic, -question, -sample_size, -(confidence_limit_low:geo_location)) %>% 
+  spread(key = response, value = data_value) %>% 
+  janitor::clean_names() %>% 
+  mutate(excell_vgood = (excellent + very_good)/100)
+```
+
+
+
+
 
