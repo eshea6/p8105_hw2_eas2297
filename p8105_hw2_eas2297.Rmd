@@ -181,5 +181,12 @@ brfss_clean %>%
 
 Make a scatterplot showing the proportion of “Excellent” response values in New York County and Queens County (both in NY State) in each year from 2002 to 2010.
 
+```{r}
+brfss_clean %>% 
+  filter(locationdesc == "NY - New York County" | locationdesc == "NY - Queens County") %>%
+  ggplot(aes(x = year, y = excellent)) + geom_point(aes(color = locationdesc))
+```
+
+
 
 
